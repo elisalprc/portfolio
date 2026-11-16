@@ -1,0 +1,28 @@
+{#- Variable attendue : articles (TOUS, brouillons compris). -#}
+{% extends "base.html" %}
+{% block titre %}Articles{% endblock %}
+{% block contenu %}
+<h1>Articles</h1>
+<p><a class="bouton" href="{{ url_for('admin.nouvel_article') }}">Nouvel article</a></p>
+<table class="tableau">
+  <thead><tr><th>Titre</th><th>État</th><th>Créé le</th><th></th></tr></thead>
+  <tbody>
+  {% for a in articles %}
+    <tr>
+      <td>{% if a.publie %}<a href="{{ url_for('pages.article', slug=a.slug) }}">{{ a.titre }}</a>{% else %}{{ a.titre }}{% endif %}</td>
+      <td>{{ "publié" if a.publie else "brouillon" }}</td>
+      <td>{{ a.cree_le }}</td>
+      <td class="actions">
+        <a href="{{ url_for('admin.modifier_article', id_article=a.id) }}">Modifier</a>
+        <form class="en-ligne" method="post" action="{{ url_for('admin.supprimer_article', id_article=a.id) }}"
+              onsubmit="return confirm('Supprimer définitivement cet article ?');">
+          <button class="lien danger">Supprimer</button>
+        </form>
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="4">Aucun article.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

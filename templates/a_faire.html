@@ -1,0 +1,12 @@
+{#- Affichée quand une route appelle une fonction pas encore écrite.
+    Variable : erreur (l'exception AFaire : erreur.etape, erreur.fonction). -#}
+{% extends "base.html" %}
+{% block titre %}À faire{% endblock %}
+{% block contenu %}
+<div class="a-faire">
+  <h1>Étape {{ erreur.etape }} : à écrire</h1>
+  <p>Cette page a besoin de <code>{{ erreur.fonction }}{{ "" if "." in erreur.fonction else "()" }}</code>,
+     qui n'est pas encore écrit (il contient encore <code>raise AFaire</code>).</p>
+  <p>Écrivez ce code, puis vérifiez-le avec <code>python -m pytest</code>.</p>
+</div>
+{% endblock %}

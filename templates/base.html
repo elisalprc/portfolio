@@ -1,0 +1,45 @@
+{#- Gabarit commun à toutes les pages. Fourni : rien à écrire.
+    Variable injectée partout par app.py : moi (le profil, ou None). -#}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titre %}{% endblock %} — {{ moi.nom if moi else "Mon portfolio" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="entete">
+    <a class="logo" href="{{ url_for('pages.accueil') }}">{{ moi.nom if moi else "Mon portfolio" }}</a>
+    <nav>
+      <a href="{{ url_for('pages.cv') }}">CV</a>
+      <a href="{{ url_for('pages.projets') }}">Projets</a>
+      <a href="{{ url_for('pages.blog') }}">Blog</a>
+      <a href="{{ url_for('pages.contact') }}">Contact</a>
+      {% if session.admin %}
+        <a class="admin" href="{{ url_for('admin.tableau') }}">Administration</a>
+        <form class="en-ligne" method="post" action="{{ url_for('admin.deconnexion') }}">
+          <button class="lien">Déconnexion</button>
+        </form>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    {% for categorie, message in get_flashed_messages(with_categories=true) %}
+      <p class="flash flash-{{ categorie }}">{{ message }}</p>
+    {% endfor %}
+    {% block contenu %}{% endblock %}
+  </main>
+
+  <footer class="pied">
+    {% if moi %}
+      {{ moi.nom }}{% if moi.ville %} · {{ moi.ville }}{% endif %}
+      · <a href="mailto:{{ moi.email }}">{{ moi.email }}</a>
+      {% if moi.github %} · <a href="{{ moi.github }}">GitHub</a>{% endif %}
+      {% if moi.linkedin %} · <a href="{{ moi.linkedin }}">LinkedIn</a>{% endif %}
+    {% endif %}
+    {% if not session.admin %} · <a href="{{ url_for('admin.connexion') }}">admin</a>{% endif %}
+  </footer>
+</body>
+</html>

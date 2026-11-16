@@ -1,0 +1,111 @@
+/* Feuille de style du portfolio. Fournie : le projet porte sur le serveur,
+   pas sur l'apparence. Vous pouvez la modifier (couleurs ci-dessous). */
+:root {
+  --accent: #b5162b;
+  --accent-clair: #fbe9eb;
+  --texte: #1f2328;
+  --gris: #646b73;
+  --fond: #ffffff;
+  --fond-doux: #f5f6f8;
+  --bord: #dde1e6;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; color: var(--texte); background: var(--fond);
+  font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+a { color: var(--accent); }
+code { background: var(--fond-doux); padding: 0 .3em; border-radius: 3px; }
+
+.entete {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: .5rem 1.5rem; padding: 1rem max(1rem, calc(50% - 30rem));
+  border-bottom: 1px solid var(--bord);
+}
+.logo { font-weight: 700; font-size: 1.15rem; color: var(--texte); text-decoration: none; }
+.entete nav { display: flex; flex-wrap: wrap; gap: 1.1rem; align-items: center; }
+.entete nav a { color: var(--texte); text-decoration: none; }
+.entete nav a:hover { color: var(--accent); }
+.entete nav a.admin { color: var(--accent); font-weight: 600; }
+
+main { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+h1 { font-size: 2rem; line-height: 1.2; margin: .5rem 0; }
+h2 { margin-top: 2.2rem; border-bottom: 2px solid var(--accent-clair); padding-bottom: .2rem; }
+.sous-titre { color: var(--gris); font-size: 1.15rem; margin-top: 0; }
+.date, .periode, .note, .organisation { color: var(--gris); font-size: .92rem; margin: .1rem 0; }
+.duree { font-size: .85rem; }
+
+.pied {
+  text-align: center; color: var(--gris); font-size: .9rem;
+  padding: 1.5rem 1rem; border-top: 1px solid var(--bord);
+}
+
+.bouton, button.bouton {
+  display: inline-block; padding: .55rem 1.1rem; border-radius: 6px; border: 0;
+  background: var(--accent); color: #fff; text-decoration: none; font: inherit; cursor: pointer;
+}
+.bouton.secondaire { background: var(--fond-doux); color: var(--texte); border: 1px solid var(--bord); }
+button.lien { background: none; border: 0; padding: 0; font: inherit; color: var(--accent); cursor: pointer; }
+button.lien.danger { color: #9a1a1a; }
+form.en-ligne { display: inline; }
+
+.grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1rem; }
+.carte {
+  border: 1px solid var(--bord); border-radius: 8px; padding: 1rem 1.1rem; background: var(--fond);
+}
+.carte h3 { margin: 0 0 .3rem; }
+.carte h3 a { color: var(--texte); text-decoration: none; }
+.carte h3 a:hover { color: var(--accent); }
+.carte.chiffre { text-decoration: none; color: var(--texte); }
+.carte.chiffre strong { display: block; font-size: 2rem; color: var(--accent); }
+
+.etiquettes, .filtres { display: flex; flex-wrap: wrap; gap: .4rem; }
+.etiquette {
+  font-size: .82rem; padding: .1rem .55rem; border-radius: 99px;
+  background: var(--fond-doux); color: var(--texte); text-decoration: none; border: 1px solid var(--bord);
+}
+.etiquette.active, .etiquette:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.liste-articles { padding-left: 1.1rem; }
+.liste-articles .date { margin-left: .5rem; }
+.extrait { margin-bottom: 1.6rem; }
+.extrait h2 { border: 0; margin: 0; }
+.pagination { display: flex; justify-content: space-between; margin-top: 2rem; }
+
+.frise { list-style: none; padding: 0; border-left: 3px solid var(--accent-clair); }
+.frise li { padding: 0 0 1.2rem 1.2rem; position: relative; }
+.frise li::before {
+  content: ""; position: absolute; left: -8px; top: .45rem;
+  width: 13px; height: 13px; border-radius: 50%; background: var(--accent);
+}
+.frise h3 { margin: .1rem 0; }
+.competences { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: 1rem 2rem; }
+.competences ul { list-style: none; padding: 0; }
+.competences li { display: flex; justify-content: space-between; border-bottom: 1px dotted var(--bord); }
+.niveau { color: var(--accent); letter-spacing: 2px; }
+
+.formulaire { display: flex; flex-direction: column; gap: .3rem; max-width: 34rem; }
+.formulaire.etroit { max-width: 22rem; }
+.formulaire.large { max-width: none; }
+.formulaire label { font-weight: 600; margin-top: .7rem; }
+.formulaire label.case { font-weight: normal; }
+.formulaire input, .formulaire textarea {
+  font: inherit; padding: .5rem .6rem; border: 1px solid var(--bord); border-radius: 6px;
+}
+.formulaire button { align-self: flex-start; margin-top: 1rem; }
+.erreur { color: #9a1a1a; margin: 0; font-size: .92rem; }
+.piege { position: absolute; left: -10000px; }
+
+.flash { padding: .7rem 1rem; border-radius: 6px; background: var(--fond-doux); }
+.flash-succes { background: #e6f4ea; color: #1b5e20; }
+.flash-erreur { background: #fdecea; color: #8a1c1c; }
+
+.tableau { width: 100%; border-collapse: collapse; }
+.tableau th, .tableau td { text-align: left; padding: .45rem .5rem; border-bottom: 1px solid var(--bord); }
+.tableau .actions { white-space: nowrap; }
+.tableau .actions a { margin-right: .8rem; }
+.message { border: 1px solid var(--bord); border-radius: 8px; padding: .8rem 1rem; margin-bottom: 1rem; }
+.message.non-lu { border-left: 4px solid var(--accent); }
+.message h3 { margin: .3rem 0; }
+.a-faire { border: 2px dashed var(--accent); border-radius: 8px; padding: 1rem 1.5rem; background: var(--accent-clair); }

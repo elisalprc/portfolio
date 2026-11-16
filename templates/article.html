@@ -1,0 +1,12 @@
+{#- Variables attendues : article (dict de la table articles), minutes (entier). -#}
+{% extends "base.html" %}
+{% block titre %}{{ article.titre }}{% endblock %}
+{% block contenu %}
+<p><a href="{{ url_for('pages.blog') }}">← Tous les articles</a></p>
+<article>
+  <h1>{{ article.titre }}</h1>
+  <p class="date">{{ article.cree_le[:10] }} · {{ minutes }} min de lecture
+     {% if article.modifie_le %} · modifié le {{ article.modifie_le[:10] }}{% endif %}</p>
+  {% for p in article.contenu | paragraphes %}<p>{{ p }}</p>{% endfor %}
+</article>
+{% endblock %}

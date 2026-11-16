@@ -1,0 +1,27 @@
+{#- Variables attendues :
+      erreurs   dict {champ: message} (vide si aucune erreur)
+      valeurs   ce que le visiteur a déjà tapé (dict, ou request.form) -#}
+{% extends "base.html" %}
+{% block titre %}Contact{% endblock %}
+{% block contenu %}
+<h1>Me contacter</h1>
+<form method="post" class="formulaire" novalidate>
+  {% for champ, libelle, type in [("nom", "Votre nom", "text"), ("email", "Votre adresse électronique", "email"), ("sujet", "Sujet (facultatif)", "text")] %}
+  <label for="{{ champ }}">{{ libelle }}</label>
+  <input id="{{ champ }}" name="{{ champ }}" type="{{ type }}" value="{{ valeurs.get(champ, '') }}">
+  {% if erreurs[champ] %}<p class="erreur">{{ erreurs[champ] }}</p>{% endif %}
+  {% endfor %}
+
+  <label for="message">Votre message</label>
+  <textarea id="message" name="message" rows="7">{{ valeurs.get('message', '') }}</textarea>
+  {% if erreurs.message %}<p class="erreur">{{ erreurs.message }}</p>{% endif %}
+
+  {#- Champ piège pour les robots : invisible pour un humain. -#}
+  <div class="piege" aria-hidden="true">
+    <label for="site_web">Ne pas remplir</label>
+    <input id="site_web" name="site_web" type="text" tabindex="-1" autocomplete="off">
+  </div>
+
+  <button class="bouton">Envoyer</button>
+</form>
+{% endblock %}

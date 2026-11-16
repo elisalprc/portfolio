@@ -1,0 +1,14 @@
+{#- Aucune variable. Le formulaire envoie "identifiant" et "mot_de_passe"
+    (POST) à la même adresse, en conservant ?suivant=... -#}
+{% extends "base.html" %}
+{% block titre %}Connexion{% endblock %}
+{% block contenu %}
+<h1>Administration</h1>
+<form method="post" class="formulaire etroit">
+  <label for="identifiant">Identifiant</label>
+  <input id="identifiant" name="identifiant" autocomplete="username" required>
+  <label for="mot_de_passe">Mot de passe</label>
+  <input id="mot_de_passe" name="mot_de_passe" type="password" autocomplete="current-password" required>
+  <button class="bouton">Se connecter</button>
+</form>
+{% endblock %}

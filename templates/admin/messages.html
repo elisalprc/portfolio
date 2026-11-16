@@ -1,0 +1,20 @@
+{#- Variable attendue : messages (liste, non lus d'abord). -#}
+{% extends "base.html" %}
+{% block titre %}Messages{% endblock %}
+{% block contenu %}
+<h1>Messages reçus</h1>
+{% for m in messages %}
+<article class="message {{ 'non-lu' if not m.lu }}">
+  <p class="date">{{ m.recu_le }} — <strong>{{ m.nom }}</strong> &lt;<a href="mailto:{{ m.email }}">{{ m.email }}</a>&gt;</p>
+  {% if m.sujet %}<h3>{{ m.sujet }}</h3>{% endif %}
+  {% for p in m.contenu | paragraphes %}<p>{{ p }}</p>{% endfor %}
+  {% if not m.lu %}
+  <form method="post" action="{{ url_for('admin.message_lu', id_message=m.id) }}">
+    <button class="lien">Marquer comme lu</button>
+  </form>
+  {% endif %}
+</article>
+{% else %}
+<p>Aucun message.</p>
+{% endfor %}
+{% endblock %}

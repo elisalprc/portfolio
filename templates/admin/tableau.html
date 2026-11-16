@@ -1,0 +1,12 @@
+{#- Variables attendues : nb_publies, nb_brouillons, nb_non_lus (entiers). -#}
+{% extends "base.html" %}
+{% block titre %}Tableau de bord{% endblock %}
+{% block contenu %}
+<h1>Tableau de bord</h1>
+<div class="grille">
+  <a class="carte chiffre" href="{{ url_for('admin.articles') }}"><strong>{{ nb_publies }}</strong> article{{ "s" if nb_publies > 1 }} publié{{ "s" if nb_publies > 1 }}</a>
+  <a class="carte chiffre" href="{{ url_for('admin.articles') }}"><strong>{{ nb_brouillons }}</strong> brouillon{{ "s" if nb_brouillons > 1 }}</a>
+  <a class="carte chiffre" href="{{ url_for('admin.messages') }}"><strong>{{ nb_non_lus }}</strong> message{{ "s" if nb_non_lus > 1 }} non lu{{ "s" if nb_non_lus > 1 }}</a>
+</div>
+<p><a class="bouton" href="{{ url_for('admin.nouvel_article') }}">Écrire un article</a></p>
+{% endblock %}

@@ -1,0 +1,25 @@
+{#- Variables attendues :
+      articles     les articles de la page (liste)
+      pagination   le dict renvoyé par paginer() -#}
+{% extends "base.html" %}
+{% block titre %}Blog{% endblock %}
+{% block contenu %}
+<h1>Blog</h1>
+{% for article in articles %}
+<article class="extrait">
+  <h2><a href="{{ url_for('pages.article', slug=article.slug) }}">{{ article.titre }}</a></h2>
+  <p class="date">{{ article.cree_le[:10] }}</p>
+  <p>{{ article.contenu | resume }}</p>
+</article>
+{% else %}
+<p>Aucun article publié pour l'instant.</p>
+{% endfor %}
+
+{% if pagination.nb_pages > 1 %}
+<nav class="pagination">
+  {% if pagination.precedente %}<a href="{{ url_for('pages.blog', page=pagination.precedente) }}">← Plus récents</a>{% endif %}
+  <span>Page {{ pagination.page }} / {{ pagination.nb_pages }}</span>
+  {% if pagination.suivante %}<a href="{{ url_for('pages.blog', page=pagination.suivante) }}">Plus anciens →</a>{% endif %}
+</nav>
+{% endif %}
+{% endblock %}

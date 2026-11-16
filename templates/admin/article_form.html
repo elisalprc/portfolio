@@ -1,0 +1,23 @@
+{#- Variables attendues :
+      valeurs   {"titre": ..., "contenu": ..., "publie": True/False} (ou {} si vide)
+      erreurs   {champ: message}
+      article   l'article modifié, ou None pour une création
+    Champs envoyés (POST) : titre, contenu, publie (seulement si la case est cochée). -#}
+{% extends "base.html" %}
+{% block titre %}{{ "Modifier" if article else "Nouvel article" }}{% endblock %}
+{% block contenu %}
+<p><a href="{{ url_for('admin.articles') }}">← Articles</a></p>
+<h1>{{ "Modifier « " ~ article.titre ~ " »" if article else "Nouvel article" }}</h1>
+<form method="post" class="formulaire large" novalidate>
+  <label for="titre">Titre</label>
+  <input id="titre" name="titre" value="{{ valeurs.get('titre', '') }}">
+  {% if erreurs.titre %}<p class="erreur">{{ erreurs.titre }}</p>{% endif %}
+
+  <label for="contenu">Contenu (séparez les paragraphes par une ligne vide)</label>
+  <textarea id="contenu" name="contenu" rows="16">{{ valeurs.get('contenu', '') }}</textarea>
+  {% if erreurs.contenu %}<p class="erreur">{{ erreurs.contenu }}</p>{% endif %}
+
+  <label class="case"><input type="checkbox" name="publie" {{ "checked" if valeurs.get('publie') }}> Publier</label>
+  <button class="bouton">Enregistrer</button>
+</form>
+{% endblock %}

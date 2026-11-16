@@ -1,0 +1,9 @@
+{#- Morceau inclus dans accueil.html et projets.html. Variable : projet
+    (dict, avec "technologies" sous forme de LISTE). -#}
+<article class="carte">
+  <h3><a href="{{ url_for('pages.projet', slug=projet.slug) }}">{{ projet.titre }}</a></h3>
+  <p>{{ projet.resume }}</p>
+  <p class="etiquettes">
+    {% for t in projet.technologies %}<a class="etiquette" href="{{ url_for('pages.projets', techno=t) }}">{{ t }}</a>{% endfor %}
+  </p>
+</article>

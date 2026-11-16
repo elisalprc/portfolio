@@ -1,0 +1,48 @@
+{#- Variables attendues :
+      experiences   liste des expériences "pro"        (dict de la table experiences)
+      formations    liste des expériences "formation"
+      competences   dict {categorie: [{"nom": ..., "niveau": 1 à 5}, ...]} -#}
+{% extends "base.html" %}
+{% block titre %}CV{% endblock %}
+
+{% macro frise(liste) %}
+<ol class="frise">
+  {% for e in liste %}
+  <li>
+    <p class="periode">{{ e.debut | periode(e.fin) }} <span class="duree">({{ e.debut | duree(e.fin) }})</span></p>
+    <h3>{{ e.titre }}</h3>
+    <p class="organisation">{{ e.organisation }}{% if e.lieu %}, {{ e.lieu }}{% endif %}</p>
+    {% if e.description %}<p>{{ e.description }}</p>{% endif %}
+  </li>
+  {% else %}
+  <li>Rien pour l'instant.</li>
+  {% endfor %}
+</ol>
+{% endmacro %}
+
+{% block contenu %}
+<h1>Curriculum vitæ</h1>
+{% if moi %}<p class="sous-titre">{{ moi.titre }}</p>{% endif %}
+
+<h2>Expérience</h2>
+{{ frise(experiences) }}
+
+<h2>Formation</h2>
+{{ frise(formations) }}
+
+<h2>Compétences</h2>
+<div class="competences">
+  {% for categorie, liste in competences.items() %}
+  <div>
+    <h3>{{ categorie }}</h3>
+    <ul>
+      {% for c in liste %}
+      <li><span>{{ c.nom }}</span>
+          <span class="niveau" title="{{ c.niveau }} / 5">{{ "●" * c.niveau }}{{ "○" * (5 - c.niveau) }}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</div>
+<p class="note">Ce CV existe aussi en JSON : <a href="{{ url_for('api.cv') }}">/api/cv</a>.</p>
+{% endblock %}

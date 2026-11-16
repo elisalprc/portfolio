@@ -1,0 +1,11 @@
+# Environnement virtuel
+.venv/
+venv/
+
+# Base de données, clé secrète : ne JAMAIS les publier
+instance/
+
+# Fichiers produits par Python et pytest
+__pycache__/
+*.pyc
+.pytest_cache/

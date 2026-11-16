@@ -1,0 +1,16 @@
+{#- Variable attendue : projet (dict, "technologies" sous forme de liste). -#}
+{% extends "base.html" %}
+{% block titre %}{{ projet.titre }}{% endblock %}
+{% block contenu %}
+<p><a href="{{ url_for('pages.projets') }}">← Tous les projets</a></p>
+<h1>{{ projet.titre }}</h1>
+<p class="sous-titre">{{ projet.resume }}</p>
+<p class="etiquettes">
+  {% for t in projet.technologies %}<a class="etiquette" href="{{ url_for('pages.projets', techno=t) }}">{{ t }}</a>{% endfor %}
+</p>
+{% for p in projet.description | paragraphes %}<p>{{ p }}</p>{% endfor %}
+<p>
+  {% if projet.lien_code %}<a class="bouton" href="{{ projet.lien_code }}">Code source</a>{% endif %}
+  {% if projet.lien_demo %}<a class="bouton secondaire" href="{{ projet.lien_demo }}">Démonstration</a>{% endif %}
+</p>
+{% endblock %}

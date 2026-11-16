@@ -1,0 +1,23 @@
+{#- Variables attendues :
+      projets        liste des projets à afficher (déjà filtrés)
+      technologies   liste de TOUTES les technologies (boutons de filtre)
+      techno         le filtre choisi (texte), ou None -#}
+{% extends "base.html" %}
+{% block titre %}Projets{% endblock %}
+{% block contenu %}
+<h1>Projets</h1>
+<p class="filtres">
+  <a class="etiquette {{ 'active' if not techno }}" href="{{ url_for('pages.projets') }}">Tous</a>
+  {% for t in technologies %}
+    <a class="etiquette {{ 'active' if techno and t.lower() == techno.lower() }}"
+       href="{{ url_for('pages.projets', techno=t) }}">{{ t }}</a>
+  {% endfor %}
+</p>
+<div class="grille">
+  {% for projet in projets %}
+    {% include "_carte_projet.html" %}
+  {% else %}
+    <p>Aucun projet{% if techno %} n'utilise « {{ techno }} »{% endif %}.</p>
+  {% endfor %}
+</div>
+{% endblock %}

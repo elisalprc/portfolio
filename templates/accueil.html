@@ -1,0 +1,38 @@
+{#- Variables attendues : projets (liste, 3 au plus), articles (liste, 3 au plus). -#}
+{% extends "base.html" %}
+{% block titre %}Accueil{% endblock %}
+{% block contenu %}
+{% if moi %}
+<section class="presentation">
+  <h1>{{ moi.nom }}</h1>
+  <p class="sous-titre">{{ moi.titre }}</p>
+  {% for p in moi.bio | paragraphes %}<p>{{ p }}</p>{% endfor %}
+  <p><a class="bouton" href="{{ url_for('pages.cv') }}">Voir mon CV</a>
+     <a class="bouton secondaire" href="{{ url_for('pages.contact') }}">Me contacter</a></p>
+</section>
+{% else %}
+<section class="presentation">
+  <h1>Portfolio vide</h1>
+  <p>La base ne contient pas encore de profil : lancez <code>python remplir.py</code>.</p>
+</section>
+{% endif %}
+
+<h2>Derniers projets</h2>
+<div class="grille">
+  {% for projet in projets %}
+    {% include "_carte_projet.html" %}
+  {% else %}
+    <p>Aucun projet pour l'instant.</p>
+  {% endfor %}
+</div>
+
+<h2>Derniers articles</h2>
+<ul class="liste-articles">
+  {% for article in articles %}
+    <li><a href="{{ url_for('pages.article', slug=article.slug) }}">{{ article.titre }}</a>
+        <span class="date">{{ article.cree_le[:10] }}</span></li>
+  {% else %}
+    <li>Aucun article pour l'instant.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
