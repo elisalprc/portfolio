@@ -56,8 +56,30 @@ CREATE TABLE projets (
 -- À FAIRE (étape 2) : écrivez ici les deux CREATE TABLE.
 -- Indice : Table articles : id (clé auto-incrémentée), titre, slug (unique), contenu,
 --          publie (entier 0 ou 1, 0 par défaut), cree_le (texte, obligatoire), modifie_le (texte, facultatif).
+
+CREATE TABLE articles (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    titre         TEXT NOT NULL,
+    slug          TEXT NOT NULL UNIQUE,
+    contenu        TEXT NOT NULL,  -- une phrase, affichée sur les cartes
+    description   TEXT NOT NULL,  -- texte complet, paragraphes séparés par une ligne vide
+    publie        INTEGER NOT NULL CHECK (publie BETWEEN 0 AND 1) DEFAULT 0,
+    cree_le       TEXT NOT NULL,   -- « AAAA-MM »
+    modifie_le    TEXT   -- « AAAA-MM »
+); 
+
 --          Table messages : id, nom, email, sujet (facultatif), contenu, recu_le (texte, obligatoire),
 --          lu (entier 0 ou 1, 0 par défaut).  Modèle : la table projets ci-dessus.
+
+CREATE TABLE messages (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom         TEXT NOT NULL,
+    email          TEXT NOT NULL,
+    sujet        TEXT, --facultatif donc on retire le NOT NULL
+    recu_le   TEXT NOT NULL,  -- AAAA-MM
+    lu        INTEGER NOT NULL CHECK (lu BETWEEN 0 AND 1) DEFAULT 0
+); 
+
 
 -- Le compte administrateur (une ligne). Le mot de passe n'est jamais
 -- stocké en clair : seulement son hachage (werkzeug.security).

@@ -117,7 +117,8 @@ def lister_experiences(categorie):
     récentes d'abord (tri sur la colonne debut, décroissant)."""
     # À FAIRE (étape 2)
     # Indice : Modèle : lire_profil(). Ici « WHERE categorie = ? ORDER BY ... DESC » et (categorie,).
-    raise AFaire(2, "lister_experiences")
+    return requete("SELECT * FROM profil WHERE categorie = ? ORDER BY debut DESC")
+ #   raise AFaire(2, "lister_experiences")
 
 
 def competences_par_categorie():
